@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form method="POST">
+        <label for="username">Enter Lichess Username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if data %}
+    <div class="profile">
+        <img src="{{ data['url'] }}" alt="Profile Image">
+        <p><strong>Username:</strong> {{ data['username'] }}</p>
+        <p><strong>Bio:</strong> {{ data['perfs']['blitz']['games'] }}</p>
+        <p><strong>Number of Games Played:</strong> {{ data['count']['all'] }}</p>
+        <p><strong>Ratings:</strong> {{ data['perfs']['blitz']['rating'] }} (Blitz)</p>
+    </div>
+    {% endif %}
+</body>
+</html>

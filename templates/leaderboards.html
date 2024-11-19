@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboards</title>
+</head>
+<body>
+    <h1>Top Bullet Players</h1>
+    <ul>
+        {% for player in top_bullet_players %}
+            <li>{{ player.username }} - Rating: {{ player.rating }} - Title: {{ player.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Top Blitz Players</h1>
+    <ul>
+        {% for player in top_blitz_players %}
+            <li>{{ player.username }} - Rating: {{ player.rating }} - Title: {{ player.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
