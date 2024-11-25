@@ -23,6 +23,3 @@ The **Lichess Info App** is a simple web application that allows users to intera
 3. Run the application locally.  
 4. Use the navigation menu to access the three features: Search Profiles, View Leaderboards, and View Tournaments.
 
----
-
-Let me know if you'd like to add anything!
