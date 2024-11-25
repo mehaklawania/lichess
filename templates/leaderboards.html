@@ -1,21 +1,35 @@
+<!-- leaderboards.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Top Bullet Players</h1>
-    <ul>
-        {% for player in top_bullet_players %}
-            <li>{{ player.username }} - Rating: {{ player.rating }} - Title: {{ player.title }}</li>
+    <div class="header">
+        <!-- <img src="/api/placeholder/60/60" alt="Lichess Logo"> -->
+        <h1>Leaderboards</h1>
+    </div>
+    {% for variant, players in leaderboards.items() %}
+    <h2>{{ variant|title }} Top 10</h2>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Username</th>
+            <th>Rating</th>
+            <th>Title</th>
+        </tr>
+        {% for player in players %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ player.username }}</td>
+            <td>{{ player.perfs[variant].rating }}</td>
+            <td>{{ player.title|default('', true) }}</td>
+        </tr>
         {% endfor %}
-    </ul>
-
-    <h1>Top Blitz Players</h1>
-    <ul>
-        {% for player in top_blitz_players %}
-            <li>{{ player.username }} - Rating: {{ player.rating }} - Title: {{ player.title }}</li>
-        {% endfor %}
-    </ul>
+    </table>
+    {% endfor %}
 </body>
 </html>

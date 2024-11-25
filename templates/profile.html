@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>User Profile</h1>
+    <div class="header">
+        <!-- <img src="/api/placeholder/60/60" alt="Lichess Logo"> -->
+        <h1>User Profile</h1>
+    </div>
     <form method="POST">
         <label for="username">Enter Lichess Username:</label>
         <input type="text" id="username" name="username" required>
@@ -15,12 +18,18 @@
     </form>
     {% if data %}
     <div class="profile">
-        <img src="{{ data['url'] }}" alt="Profile Image">
-        <p><strong>Username:</strong> {{ data['username'] }}</p>
-        <p><strong>Bio:</strong> {{ data['perfs']['blitz']['games'] }}</p>
-        <p><strong>Number of Games Played:</strong> {{ data['count']['all'] }}</p>
-        <p><strong>Ratings:</strong> {{ data['perfs']['blitz']['rating'] }} (Blitz)</p>
+        <img src="{{ data.profile_url }}" alt="Profile Image">
+        <p><strong>Username:</strong> {{ data.username }}</p>
+        <p><strong>Bio:</strong> {{ data.bio }}</p>
+        <p><strong>Total Games Played:</strong> {{ data.total_games }}</p>
+        <p><strong>Ratings:</strong></p>
+        <ul>
+            <li>Blitz: {{ data.ratings.blitz }}</li>
+            <li>Bullet: {{ data.ratings.bullet }}</li>
+            <li>Rapid: {{ data.ratings.rapid }}</li>
+        </ul>
     </div>
     {% endif %}
 </body>
 </html>
+

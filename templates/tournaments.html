@@ -3,17 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ongoing Tournaments</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Lichess Tournaments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* max-width: 1400px; */
+            margin: 0 auto;
+            /* padding: 20px; */
+            background-color: #FEFAE0;
+        }
+
+        .header {
+            background-color: #283618;
+            width: 100%;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: #FEFAE0;
+            margin: 0;
+            font-size: 2.5rem;
+            font-family: "Montserrat", serif;
+            font-weight: 500;
+        }
+
+        .tournaments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .tournament-card {
+            background: #FEFAE0;
+            border-radius: 10px;
+            border: 1px solid #283618 ;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .tournament-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tournament-card h2 {
+            margin: 0 0 15px 0;
+            color: #283618;
+            font-size: 1.2em;
+            border-bottom: 2px solid #283618;
+            padding-bottom: 10px;
+        }
+
+        .tournament-info {
+            margin: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #c4c9b3;
+        }
+
+        .tournament-info strong {
+            color: #283618;
+            flex: 0 0 120px;
+        }
+
+        .tournament-info span {
+            color: #283618;
+            font-weight: 500;
+        }
+
+        .view-button {
+            display: inline-block;
+            background-color: #283618;
+            color: #FEFAE0;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: background-color 0.2s ease;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .view-button:hover {
+            background-color: #606C38;
+        }
+
+        .variant-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #c4c9b3;
+            color: #283618;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            background-color: #c4c9b3;
+            color: #FEFAE0;
+        }
+
+        .time-control {
+            font-family: monospace;
+            color: #FEFAE0;
+            background-color: #c4c9b3;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Ongoing Tournaments</h1>
-    <ul>
+    <div class="header">
+        <!-- <img src="/api/placeholder/60/60" alt="Lichess Logo"> -->
+        <h1>Ongoing Tournaments</h1>
+    </div>
+    
+    
+    {% if tournaments %}
+    <div class="tournaments-grid">
         {% for tournament in tournaments %}
-        <li>
-            <strong>{{ tournament['name'] }}</strong>: {{ tournament['status'] }}
-        </li>
+        <div class="tournament-card">
+            <h2>{{ tournament.name }}</h2>
+            
+            <div class="tournament-info">
+                <strong>Variant:</strong>
+                <span class="variant-badge">{{ tournament.variant }}</span>
+            </div>
+            
+            <div class="tournament-info">
+                <strong>Players:</strong>
+                <span>{{ tournament.players }}</span>
+            </div>
+            
+            <div class="tournament-info">
+                <strong>Time Control:</strong>
+                <span class="time-control">{{ tournament.timeControl }}</span>
+            </div>
+            
+            <div class="tournament-info">
+                <strong>Duration:</strong>
+                <span>{{ tournament.duration }} minutes</span>
+            </div>
+            
+            <div class="tournament-info">
+                <strong>Status:</strong>
+                <span class="status-badge">{{ tournament.status }}</span>
+            </div>
+            
+            <a href="https://lichess.org/tournament/{{ tournament.id }}" 
+               target="_blank" 
+               class="view-button">
+                View on Lichess
+            </a>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 40px; color: #7f8c8d;">
+        <p>No tournaments available at the moment.</p>
+    </div>
+    {% endif %}
 </body>
 </html>
